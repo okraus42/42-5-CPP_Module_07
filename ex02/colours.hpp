@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   colours.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 13:08:58 by okraus            #+#    #+#             */
-/*   Updated: 2024/05/25 16:40:51 by okraus           ###   ########.fr       */
+/*   Created: 2024/05/11 15:22:51 by okraus            #+#    #+#             */
+/*   Updated: 2024/05/18 16:42:19 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef ITER_HPP
-# define ITER_HPP
+#ifndef COLOURS_HPP
+# define COLOURS_HPP
 # include <iostream>
+# include <stdint.h>
 
-template <typename T> void iter(T *arr, size_t size, void (*f)(T&))
-{
-	for (size_t element = 0; element < size; ++element)
-		f(arr[element]);
-}
+# define ERROR_COLOUR "\033[1;5;38:5:226;48:5:196m"
+# define NO_COLOUR "\033[0m"
 
-//just to check if array was affected and print easily everythingtriple
-template <typename T> void printArr(T *arr, size_t size)
-{
-	for (size_t element = 0; element < size; ++element)
-		std::cout << "[" << arr[element] << "], ";
-}
+void		ft_colorize(uintptr_t i);
+std::string	ft_str_colorize(uintptr_t i);
+void		ft_uncolorize(void);
 
 #endif

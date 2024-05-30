@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   Array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:08:58 by okraus            #+#    #+#             */
-/*   Updated: 2024/05/25 16:40:51 by okraus           ###   ########.fr       */
+/*   Updated: 2024/05/30 15:08:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef ITER_HPP
-# define ITER_HPP
+#ifndef ARRAY_HPP
+# define ARRAY_HPP
+
+//# include <cstddef>
 # include <iostream>
 
-template <typename T> void iter(T *arr, size_t size, void (*f)(T&))
+template <typename T> class Array
 {
-	for (size_t element = 0; element < size; ++element)
-		f(arr[element]);
-}
+	public:
+		Array(void);
+		Array(size_t size);
+		Array(const Array& copy);
+		Array &operator	= (const Array &src);
+		~Array(void);
 
-//just to check if array was affected and print easily everythingtriple
-template <typename T> void printArr(T *arr, size_t size)
-{
-	for (size_t element = 0; element < size; ++element)
-		std::cout << "[" << arr[element] << "], ";
-}
+		T &operator		[] (size_t i);
+
+		size_t	size(void) const;
+		void	printArr(void) const;
+	
+	private:
+		T*		_arr;
+		size_t	_size;
+};
+
+# include "Array.tpp"
 
 #endif
