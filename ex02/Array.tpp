@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:08:58 by okraus            #+#    #+#             */
-/*   Updated: 2024/05/30 15:37:34 by okraus           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:58:43 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ template <typename T> Array<T>::Array(void)
 	this->_size = 0;
 }
 
-template <typename T> Array<T>::Array(size_t size)
+template <typename T> Array<T>::Array(unsigned int size)
 {
 	ft_colorize(reinterpret_cast<uintptr_t>(this));
-	std::cout << "Size_t constructor of the Array class called.";
+	std::cout << "unsigned int constructor of the Array class called.";
 	ft_uncolorize();
 	std::cout << std::endl;
 	this->_arr = new T[size];
@@ -41,7 +41,7 @@ template <typename T> Array<T>::Array(const Array& copy)
 	std::cout << std::endl;
 	this->_arr = new T[copy._size];
 	this->_size = copy._size;
-	for (size_t i = 0; i < copy._size; i++)
+	for (unsigned int i = 0; i < copy._size; i++)
 		this->_arr[i] = copy._arr[i];
 }
 
@@ -55,7 +55,7 @@ template <typename T> Array<T> &Array<T>::operator = (const Array &src)
 	{
 		this->_arr = new T[src._size];
 		this->_size = src._size;
-		for (size_t i = 0; i < src.size; i++)
+		for (unsigned int i = 0; i < src.size; i++)
 			this->_arr[i] = src._arr[i];
 	}
 	return (*this);
@@ -70,18 +70,18 @@ template <typename T> Array<T>::~Array(void)
 	delete[] this->_arr;
 }
 
-template <typename T> T& Array<T>::operator [] (size_t i)
+template <typename T> T& Array<T>::operator [] (unsigned int i)
 {
-	ft_colorize(reinterpret_cast<uintptr_t>(this));
-	std::cout << "[] Operator of the Array class called.";
-	ft_uncolorize();
-	std::cout << std::endl;
+// 	ft_colorize(reinterpret_cast<uintptr_t>(this));
+// 	std::cout << "[] Operator of the Array class called.";
+// 	ft_uncolorize();
+// 	std::cout << std::endl;
 	if (i >= _size)
-		throw (std::exception());
+		throw (IndexOutOfBoundsException());
 	return (this->_arr[i]);
 }
 
-template <typename T> size_t Array<T>::size(void) const
+template <typename T> unsigned int Array<T>::size(void) const
 {
 	ft_colorize(reinterpret_cast<uintptr_t>(this));
 	std::cout << "size of the Array class called.";
@@ -90,14 +90,18 @@ template <typename T> size_t Array<T>::size(void) const
 	return (this->_size);
 }
 
-template <typename T> void Array<T>::printArr(void) const
+template <typename T> void Array<T>::putArr(void) const
 {
 	ft_colorize(reinterpret_cast<uintptr_t>(this));
-	std::cout << "size of the Array class called.";
-	
-	for (size_t i = 0; i < this->_size; i++)
+	for (unsigned int i = 0; i < this->_size; i++)
 		(i == this->_size - 1)	? std::cout << this->_arr[i]
 								: std::cout << this->_arr[i] << " ";
 	ft_uncolorize();
 	std::cout << std::endl;
 }
+
+template <typename T> const char* Array<T>::IndexOutOfBoundsException::what() const throw()
+{
+	return (ERROR_COLOUR "Index out of bounds." NO_COLOUR);
+}
+

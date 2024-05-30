@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:08:58 by okraus            #+#    #+#             */
-/*   Updated: 2024/05/30 15:08:12 by okraus           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:54:15 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,24 @@ template <typename T> class Array
 {
 	public:
 		Array(void);
-		Array(size_t size);
+		Array(unsigned int size);
 		Array(const Array& copy);
 		Array &operator	= (const Array &src);
 		~Array(void);
 
-		T &operator		[] (size_t i);
+		T &operator		[] (unsigned int i);
 
-		size_t	size(void) const;
-		void	printArr(void) const;
+		unsigned int	size(void) const;
+		void			putArr(void) const;
+		class IndexOutOfBoundsException : public std::exception
+		{
+			public:
+				const char*		what() const throw();
+		};
 	
 	private:
-		T*		_arr;
-		size_t	_size;
+		T*				_arr;
+		unsigned int	_size;
 };
 
 # include "Array.tpp"
